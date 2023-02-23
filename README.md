@@ -1,5 +1,5 @@
 # Tarea: Alquiler de vehículos (v1)
-## Profesor: Andrés Rubio del Río
+## Profesor: Juan Antonio Muñoz Almansa
 ## Alumno:
 
 Al cliente le ha gustado bastante la aplicación, pero nos comenta algunas mejoras que necesita la anterior versión y nuevas funcionalidades que le gustaría que tuviese. Todo ello lo abordaremos en este **segundo spring**.
