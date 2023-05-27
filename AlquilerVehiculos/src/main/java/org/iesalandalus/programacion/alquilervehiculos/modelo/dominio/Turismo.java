@@ -1,5 +1,7 @@
 package org.iesalandalus.programacion.alquilervehiculos.modelo.dominio;
 
+import java.util.Objects;
+
 public class Turismo extends Vehiculo
 {
 	
@@ -20,11 +22,6 @@ public class Turismo extends Vehiculo
 	public Turismo (Turismo turismo)
 	{
 		super(turismo);
-		
-		if (turismo == null)
-		{
-			throw new NullPointerException("ERROR: No es posible copiar un turismo nulo.");
-		}
 		setCilindrada(turismo.getCilindrada());
 		
 	}
@@ -51,6 +48,30 @@ public class Turismo extends Vehiculo
 		return cilindrada/FACTOR_CILINDRADA;
 	}
 	
+	public static Vehiculo getVehiculoConMatricula(String matricula) {
+	    return new Turismo("Seat", "Cordoba", 1900, matricula);
+	}
+
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(cilindrada);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Turismo other = (Turismo) obj;
+		return cilindrada == other.cilindrada;
+	}
 
 	@Override
 	public String toString() 
@@ -58,10 +79,5 @@ public class Turismo extends Vehiculo
 		return String.format("%s %s (%sCV) - %s", super.getMarca(), super.getModelo(), cilindrada, super.getMatricula(), "disponible");
 	}
 
-	@Override
-	public Vehiculo getVehiculoConMatricula(String matricula) {
-		
-		return new Turismo("Seat", "Cordoba", 1900, matricula);
-	}
 
 }

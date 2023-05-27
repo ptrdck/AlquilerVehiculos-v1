@@ -21,11 +21,6 @@ public class Autobus extends Vehiculo
 	{
 		super(autobus);
 		
-		if (autobus == null)
-		{
-			throw new NullPointerException("ERROR: No es posible copiar un Autobus nulo.");
-		}
-		
 		setPlazas(autobus.getPlazas());
 	}
 	
@@ -56,11 +51,6 @@ public class Autobus extends Vehiculo
 	}
 
 
-	@Override
-	public Vehiculo getVehiculoConMatricula(String matricula) {
-		
-		return new Autobus("Seat","Cordoba", 10, matricula);
-	}
 	
 	
 

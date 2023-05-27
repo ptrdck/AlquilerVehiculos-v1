@@ -127,6 +127,7 @@ public class Alquileres implements IAlquileres
 	}
 	
 	//método devolver que ingreasa por parámetro un cliente y una fecha de devolución
+	/*
 	public void devolver(Alquiler alquiler, LocalDate fechaDevolucion)
 	{
 		//for para recorrer la coleccionAlquileres
@@ -147,7 +148,7 @@ public class Alquileres implements IAlquileres
 			}
 		}
 	}
-	
+	*/
 	
 	//Método para buscar un alquiler por parámetro y que buscará en la lista de coleccionAlquileres
 	//el alquiler requerido
@@ -184,17 +185,60 @@ public class Alquileres implements IAlquileres
 	}
 
 	@Override
-	public void devolver(Cliente cliente, LocalDate fechaDevolucion) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) {
-		// TODO Auto-generated method stub
+	public void devolver(Cliente cliente, LocalDate fechaDevolucion)
+	{
+		Alquiler alquiler = getAlquilerAbierto(cliente);
+        if (alquiler != null)
+        {
+            alquiler.devolver(fechaDevolucion);
+        }
+        else
+        {
+        	System.out.println("No hay ningún alquiler abierto para el cliente: " + cliente.getNombre());
+        }
 		
 	}
 	
+	private Alquiler getAlquilerAbierto(Cliente cliente)
+	{
+		for (Alquiler alquiler : coleccionAlquileres)
+		{
+			if (alquiler.getCliente().equals(cliente) && alquiler.getFechaDevolucion() == null)
+			{
+				return alquiler;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) 
+	{
+		Alquiler alquiler = getAlquilerAbierto(vehiculo);
+		if (alquiler != null)
+		{
+			alquiler.devolver(fechaDevolucion);
+		}
+		else
+		{
+			System.out.println("No hay ningún alquiler abierto para el vehículo con matrícula: " + vehiculo.getMatricula());
+		}
+		
+	}
+	
+	private Alquiler getAlquilerAbierto(Vehiculo vehiculo)
+	{
+		for (Alquiler alquiler : coleccionAlquileres)
+		{
+			if (alquiler.getVehiculo().equals(vehiculo) && alquiler.getFechaDevolucion() == null)
+			{
+				return alquiler;
+			}
+		}
+		
+		return null;
+	}
+
 	
 	
 }

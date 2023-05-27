@@ -6,124 +6,132 @@ public enum Accion
 	{
 		public void ejecutar()
 		{
-			vista.terminar();
+			vistaTexto.terminar();
 		}
 	},
 	INSERTAR_CLIENTE("Insertar cliente")
 	{
 		public void ejecutar()
 		{
-			vista.insertarCliente();
+			vistaTexto.insertarCliente();
 		}
 	},
 	INSERTAR_VEHICULO("Insertar vehiculo")
 	{
 		public void ejecutar()
 		{
-			vista.insertarVehiculo();
+			vistaTexto.insertarVehiculo();
 		}
 	},
 	INSERTAR_ALQUILER("Insertar alquiler")
 	{
 		public void ejecutar()
 		{
-			vista.insertarAlquiler();
+			vistaTexto.insertarAlquiler();
 		}
 	},
 	BUSCAR_CLIENTE("Buscar cliente")
 	{
 		public void ejecutar()
 		{
-			vista.buscarCliente();
+			vistaTexto.buscarCliente();
 		}
 	},
 	BUSCAR_VEHICULO("Buscar vehiculo")
 	{
 		public void ejecutar()
 		{
-			vista.buscarVehiculo();
+			vistaTexto.buscarVehiculo();
 		}
 	},
 	BUSCAR_ALQUILER("Buscar alquiler")
 	{
 		public void ejecutar()
 		{
-			vista.buscarAlquiler();
+			vistaTexto.buscarAlquiler();
 		}
 	},
 	MODIFICAR_CLIENTE("Modificar cliente")
 	{
 		public void ejecutar()
 		{
-			vista.modificarCliente();
+			vistaTexto.modificarCliente();
 		}
 	},
-	DEVOLVER_ALQUILER("Devolver alquiler")
+	DEVOLVER_ALQUILER_CLIENTE("Devolver alquiler por cliente")
 	{
 		public void ejecutar()
 		{
-			vista.devolverAlquiler();
+			vistaTexto.devolverAlquilerCliente();
 		}
 	},
+	DEVOLVER_ALQUILER_VEHICULO("Devolver alquiler por vehículo")
+	{
+		public void ejecutar()
+		{
+			vistaTexto.devolverAlquilerVehiculo();
+		}
+	},
+	
 	BORRAR_CLIENTE("Borrar cliente")
 	{
 		public void ejecutar()
 		{
-			vista.borrarCliente();
+			vistaTexto.borrarCliente();
 		}
 	},
 	BORRAR_VEHICULO("Borrar vehiculo")
 	{
 		public void ejecutar()
 		{
-			vista.borrarVehiculo();
+			vistaTexto.borrarVehiculo();
 		}
 	},
 	BORRAR_ALQUILER("Borrar alquiler")
 	{
 		public void ejecutar()
 		{
-			vista.borrarAlquiler();
+			vistaTexto.borrarAlquiler();
 		}
 	},
 	LISTAR_CLIENTES("Listar clientes")
 	{
 		public void ejecutar()
 		{
-			vista.listarClientes();
+			vistaTexto.listarClientes();
 		}
 	},
 	LISTAR_VEHICULOS("Listar vehiculos")
 	{
 		public void ejecutar()
 		{
-			vista.listarVehiculos();
+			vistaTexto.listarVehiculos();
 		}
 	},
 	LISTAR_ALQUILERES("Listar alquileres")
 	{
 		public void ejecutar()
 		{
-			vista.listarAlquileres();
+			vistaTexto.listarAlquileres();
 		}
 	},
 	LISTAR_ALQUILERES_CLIENTE("Listar alquileres cliente")
 	{
 		public void ejecutar()
 		{
-			vista.listarAlquileresCliente();
+			vistaTexto.listarAlquileresCliente();
 		}
 	},
 	LISTAR_ALQUILERES_VEHICULO("Listar alquileres vehiculo")
 	{
 		public void ejecutar()
 		{
-			vista.listarAlquileresVehiculo();
+			vistaTexto.listarAlquileresVehiculo();
 		}
 	};
 	
 	private String texto;
-	private static VistaTexto vista;
+	protected static VistaTexto vistaTexto;
 	private Accion(String texto)
 	{
 		this.texto = texto;
@@ -138,14 +146,27 @@ public enum Accion
 	{
 		if (!esOrdinalValido(ordinal))
 		{
-			throw new IllegalArgumentException("Ordinal de la opción no válido");
+			throw new IllegalArgumentException("ERROR: Ordinal de la opción no válido");
 		}
 		else 
 			return values()[ordinal];
+	}
+	
+	protected static void setVista(VistaTexto vistaTexto)
+	{
+		if ( vistaTexto == null)
+		{
+			throw new NullPointerException("ERROR: la vista no puede ser nula");
+		}
+		Accion.vistaTexto = vistaTexto;
+		
 	}
 	
 	public String toString()
 	{
 		return String.format("%d.- %s", ordinal(), texto);
 	}
+
+	public abstract void ejecutar();
+
 }

@@ -18,10 +18,6 @@ public class Furgoneta extends Vehiculo
 	{
 		super(furgoneta);
 		
-		if (furgoneta == null)
-		{
-			throw new NullPointerException("ERROR: No se puede copiar una furgoneta nula");
-		}
 		
 		setPma(furgoneta.getPma());
 		setPlazas(furgoneta.getPlazas());
@@ -65,10 +61,5 @@ public class Furgoneta extends Vehiculo
 		return String.format("%s %s (%sCV) - %s", super.getMarca(), super.getModelo(), pma, plazas, super.getMatricula(), "disponible");
 	}
 
-	@Override
-	public Vehiculo getVehiculoConMatricula(String matricula) {
-		
-		return new Furgoneta("Seat", "Cordoba", 0, 0, matricula);
-	}
 
 }

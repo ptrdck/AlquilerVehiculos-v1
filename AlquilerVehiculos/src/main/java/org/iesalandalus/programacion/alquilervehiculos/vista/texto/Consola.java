@@ -40,15 +40,14 @@ public class Consola
 		
 	}
 	
-	public Accion elegirAccion()
+	public static Accion elegirAccion()
 	{
 		Accion accion;
-		
 		do
 		{
 			int ordinal = leerEntero("Introduzca su opción: ");
-			accion = Accion.get(ordinal);
-		}while (accion == null);
+			accion = Accion.values()[ordinal];
+		}while (accion != Accion.SALIR);
 		
 		return accion;
 	}

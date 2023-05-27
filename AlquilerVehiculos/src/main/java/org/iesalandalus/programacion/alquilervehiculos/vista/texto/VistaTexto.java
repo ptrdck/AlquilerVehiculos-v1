@@ -14,11 +14,11 @@ public class VistaTexto extends Vista
 {
 	public VistaTexto()
 	{
-		
+		Accion.setVista(this);
 	}
 	
 
-	
+	@Override
 	public void comenzar()
 	{
 		Consola.mostrarCabecera("Gestión de Alquileres");
@@ -28,8 +28,7 @@ public class VistaTexto extends Vista
 			
 			Consola.mostrarMenuAcciones();
 			accion = Consola.elegirOpcion();
-			
-			
+			accion.ejecutar();
 		}while(accion != Accion.SALIR);
 	}	
 	
@@ -147,13 +146,27 @@ public class VistaTexto extends Vista
 		    }
 	}
 
-	protected void devolverAlquiler()
+	protected void devolverAlquilerCliente()
 	{
-		 Consola.mostrarCabecera("Devolver alquiler\n");
+		 Consola.mostrarCabecera("Devolver alquiler por cliente\n");
+		
+;		    try
+		    {
+		    	controlador.devolver(Consola.leerClienteDni(), Consola.leerFechaDevolucion());
+		    	System.out.println("Fecha de devolución correcta");
+		    }
+		    catch (NullPointerException | OperationNotSupportedException| IllegalArgumentException e)
+		    {
+		    	System.out.println(e.getMessage());
+		    }
+	}
+	protected void devolverAlquilerVehiculo()
+	{
+		 Consola.mostrarCabecera("Devolver alquiler por vehículo\n");
 		 
 		    try
 		    {
-		    	controlador.devolver(Consola.leerAlquiler(), Consola.leerFechaDevolucion());
+		    	controlador.devolver(Consola.leerVehiculoMatricula(), Consola.leerFechaDevolucion());
 		    	System.out.println("Fecha de devolución correcta");
 		    }
 		    catch (NullPointerException | OperationNotSupportedException| IllegalArgumentException e)
@@ -302,5 +315,6 @@ public class VistaTexto extends Vista
 		 else
 			 System.out.println("ERROR: No hay alquileres para dicho turismo.");	
 	}
+
 
 }

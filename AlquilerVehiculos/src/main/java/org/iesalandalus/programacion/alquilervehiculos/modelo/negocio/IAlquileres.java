@@ -29,7 +29,6 @@ public interface IAlquileres
 	
 	void borrar(Alquiler alquiler) throws OperationNotSupportedException;
 
-	void devolver(Alquiler alquiler, LocalDate fechaDevolucion);
 	
 
 }
