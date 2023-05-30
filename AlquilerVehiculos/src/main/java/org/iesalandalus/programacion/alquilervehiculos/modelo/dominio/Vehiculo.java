@@ -34,9 +34,6 @@ public abstract class Vehiculo {
     }
 
     public static Vehiculo copiar(Vehiculo vehiculo) {
-        if (vehiculo == null) {
-            throw new NullPointerException("ERROR: No es posible copiar un vehículo nulo.");
-        }
 
         if (vehiculo instanceof Turismo) {
             return new Turismo((Turismo) vehiculo);
@@ -53,8 +50,8 @@ public abstract class Vehiculo {
     {
     	
 		Vehiculos listaVehiculos = new Vehiculos();
-		List<Vehiculo> copiaVehiculos = listaVehiculos.get();
-		Iterator<Vehiculo> iterator = copiaVehiculos.iterator();
+		List<Vehiculo> copiaVehiculo = listaVehiculos.get();
+		Iterator<Vehiculo> iterator = copiaVehiculo.iterator();
 
 		while (iterator.hasNext()) 
 		{

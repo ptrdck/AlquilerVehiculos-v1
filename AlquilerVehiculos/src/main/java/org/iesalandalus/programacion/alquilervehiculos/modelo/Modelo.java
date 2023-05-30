@@ -68,11 +68,10 @@ public abstract class Modelo {
 
     public abstract List<Alquiler> getAlquileres(Vehiculo vehiculo);
 
-    public abstract void devolver(Cliente cliente, LocalDate fechaDevolucion)
-            throws OperationNotSupportedException;
-
-    public abstract void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion)
-            throws OperationNotSupportedException;
+	public void devolver(Alquiler alquiler, LocalDate fechaDevolucion) throws OperationNotSupportedException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
 

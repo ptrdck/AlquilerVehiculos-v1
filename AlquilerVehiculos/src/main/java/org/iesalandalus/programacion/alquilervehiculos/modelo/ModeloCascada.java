@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.alquilervehiculos.modelo;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,8 +23,8 @@ public class ModeloCascada extends Modelo {
 	}
 
 	@Override
-	public void insertar(Vehiculo turismo) throws OperationNotSupportedException {
-		vehiculos.insertar(turismo);
+	public void insertar(Vehiculo vehiculo) throws OperationNotSupportedException {
+		vehiculos.insertar(vehiculo);
 	}
 
 	@Override
@@ -31,28 +32,34 @@ public class ModeloCascada extends Modelo {
 		if (alquiler == null) {
 			throw new NullPointerException("ERROR: No se puede realizar un alquiler nulo.");
 		}
-		if (buscar(alquiler.getCliente()) == null) {
+		if (clientes.buscar(alquiler.getCliente()) == null) {
 			throw new OperationNotSupportedException("ERROR: No existe el cliente del alquiler.");
 		}
-		if (buscar(alquiler.getVehiculo()) == null) {
+		if (vehiculos.buscar(alquiler.getVehiculo()) == null) {
 			throw new OperationNotSupportedException("ERROR: No existe el vehículo del alquiler.");
 		}
 		alquileres.insertar(alquiler);
 	}
 
 	@Override
-	public Cliente buscar(Cliente cliente) {
-		return clientes.buscar(cliente);
+	public Cliente buscar(Cliente cliente) 
+	{
+		Cliente buscarCliente = new Cliente(clientes.buscar(cliente));
+		return buscarCliente;
 	}
 
 	@Override
-	public Vehiculo buscar(Vehiculo vehiculo) {
-		return vehiculos.buscar(vehiculo);
+	public Vehiculo buscar(Vehiculo vehiculo) 
+	{
+		Vehiculo buscarVehiculo = (vehiculos.buscar(vehiculo));
+		return buscarVehiculo;
 	}
 
 	@Override
-	public Alquiler buscar(Alquiler alquiler) {
-		return alquileres.buscar(alquiler);
+	public Alquiler buscar(Alquiler alquiler) 
+	{
+		Alquiler buscaAlquiler = new Alquiler(alquileres.buscar(alquiler));
+		return buscaAlquiler;
 	}
 
 	@Override
@@ -86,18 +93,58 @@ public class ModeloCascada extends Modelo {
 	}
 
 	@Override
-	public List<Cliente> getClientes() {
-		return new LinkedList<>(clientes.get());
+	public List<Cliente> getClientes() 
+	{
+		
+		List<Cliente> clientesLista = new LinkedList<>();
+		Iterator<Cliente> iterador = clientes.get().iterator();
+		
+		while(iterador.hasNext())
+		{
+			Cliente cliente = iterador.next();
+			if(cliente != null)
+			{
+				clientesLista.add(new Cliente(cliente));
+			}
+		}
+	
+		return clientesLista;
 	}
 
 	@Override
-	public List<Vehiculo> getVehiculos() {
-		return new LinkedList<>(vehiculos.get());
+	public List<Vehiculo> getVehiculos()
+	{
+		List<Vehiculo> vehiculosLista = new LinkedList<>();
+		Iterator<Vehiculo> iterador = vehiculos.get().iterator();
+		
+		while(iterador.hasNext())
+		{
+			Vehiculo vehiculo = iterador.next();
+			if(vehiculo != null)
+			{
+				vehiculosLista.add(vehiculo.copiar(vehiculo));
+			}
+		}
+	
+		return vehiculosLista;
 	}
 
 	@Override
-	public List<Alquiler> getAlquileres() {
-		return new LinkedList<>(alquileres.get());
+	public List<Alquiler> getAlquileres() 
+	{
+		List<Alquiler> alquileresLista = new LinkedList<>();
+		Iterator<Alquiler> iterador = alquileres.get().iterator();
+		
+		while(iterador.hasNext())
+		{
+			Alquiler alquiler = iterador.next();
+			if(alquiler != null)
+			{
+				alquileresLista.add(new Alquiler(alquiler));
+			}
+		}
+	
+		return alquileresLista;
 	}
 
 	@Override
@@ -123,20 +170,14 @@ public class ModeloCascada extends Modelo {
 	}
 
 	@Override
-	public void devolver(Cliente cliente, LocalDate fechaDevolucion) throws OperationNotSupportedException {
-		if (buscar(cliente) == null) {
-			throw new OperationNotSupportedException("ERROR: El cliente no tiene alquileres registrados.");
+	public void devolver(Alquiler alquiler, LocalDate fechaDevolucion) throws OperationNotSupportedException {
+		if (alquileres.buscar(alquiler) == null) {
+			throw new OperationNotSupportedException("ERROR: No exite tal alquiler registrado.");
 		}
-		alquileres.devolver(cliente, fechaDevolucion);
+		alquileres.devolver(alquiler, fechaDevolucion);
 	}
 
-	@Override
-	public void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) throws OperationNotSupportedException {
-		if (buscar(vehiculo) == null) {
-			throw new OperationNotSupportedException("ERROR: El vehículo no tiene alquileres registrados.");
-		}
-		alquileres.devolver(vehiculo, fechaDevolucion);
-	}
+	
 }
 
 

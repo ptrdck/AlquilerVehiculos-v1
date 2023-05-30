@@ -24,14 +24,7 @@ public class Clientes implements IClientes
 	public List<Cliente> get()
 	{
 		// INiciamos una nueva lista
-		List<Cliente> copiaClientes = new LinkedList<>();
-		
-		//iniciamos ciclo for each para recorrer toda la lista de clientes
-		for (Cliente cliente : coleccionClientes)
-		{
-			//copiamos los clientes en la nueva lista
-			copiaClientes.add(cliente);
-		}
+		List<Cliente> copiaClientes = new LinkedList<>(coleccionClientes);
 		
 		return copiaClientes;
 	}
@@ -49,7 +42,7 @@ public class Clientes implements IClientes
 		{
 			throw new NullPointerException("ERROR: No se puede insertar un alquiler nulo.");
 		}
-		else if (buscar(cliente) == null)
+		if (buscar(cliente) == null)
 		{
 			coleccionClientes.add(new Cliente(cliente));
 		}
@@ -68,9 +61,9 @@ public class Clientes implements IClientes
 			throw new NullPointerException("ERROR: No se puede buscar un cliente nulo.");
 		}
 		//Condición que busca si el cliente existe en la colección.
-		else if (coleccionClientes.contains(cliente))
+		if (coleccionClientes.indexOf(cliente) != -1)
 		{
-			return new Cliente(cliente);
+			return coleccionClientes.get(coleccionClientes.indexOf(cliente));
 		}
 		//si no encuentra al cliente devuelve un null lo cual comunicará al insertar cliente
 		else
@@ -85,7 +78,7 @@ public class Clientes implements IClientes
 			throw new NullPointerException("ERROR: No se puede borrar un cliente nulo.");
 		}
 		//usamos .remove para quitar al cliente de la lista
-		else if (coleccionClientes.contains(cliente))
+		if (coleccionClientes.contains(cliente))
 		{
 			coleccionClientes.remove(cliente);
 		}

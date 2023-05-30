@@ -23,14 +23,8 @@ public class Vehiculos implements IVehiculos
 	public List<Vehiculo> get()
 	{
 		//Iniciamos una nueva lista para dejar la copia
-		List<Vehiculo> copiaVehiculos = new LinkedList<>();
+		List<Vehiculo> copiaVehiculos = new LinkedList<>(coleccionVehiculos);
 		
-		//For each para recorrer toda la lista de turismos
-		for (Vehiculo vehiculo: coleccionVehiculos)
-		{
-			//copiamos cada turismo en la nueva lista
-			copiaVehiculos.add(vehiculo);
-		}
 		return copiaVehiculos;
 		
 	}
@@ -46,15 +40,15 @@ public class Vehiculos implements IVehiculos
 	{
 		if (vehiculo == null)
 		{
-			throw new NullPointerException("ERROR: No se puede insertar un turismo nulo.");
+			throw new NullPointerException("ERROR: No se puede insertar un vehículo nulo.");
 		}
-		else if (buscar(vehiculo) == null)
+		if (!coleccionVehiculos.contains(vehiculo))
 		{
 			coleccionVehiculos.add(vehiculo);
 		}
 		else
 		{
-			throw new OperationNotSupportedException("ERROR: Ya existe un turismo con esa matrícula.");
+			throw new OperationNotSupportedException("ERROR: Ya existe un vehículo con esa matrícula.");
 		}
 	}
 	
@@ -63,28 +57,27 @@ public class Vehiculos implements IVehiculos
 	{
 		if (vehiculo == null)
 		{
-			throw new NullPointerException("ERROR: No se puede buscar un turismo nulo.");
+			throw new NullPointerException("ERROR: No se puede buscar un vehículo nulo.");
 		}
-		else if (coleccionVehiculos.contains(vehiculo))
+		if (coleccionVehiculos.contains(vehiculo))
 		{
 			return coleccionVehiculos.get(coleccionVehiculos.indexOf(vehiculo));
 		}
-		else
-			return null;
+		return vehiculo;
 	}
 	
 	public void borrar(Vehiculo vehiculo) throws OperationNotSupportedException
 	{
 		if (vehiculo == null)
 		{
-			throw new NullPointerException("ERROR: No se puede borrar un turismo nulo.");
+			throw new NullPointerException("ERROR: No se puede borrar un vehículo nulo.");
 		}
-		else if (coleccionVehiculos.contains(vehiculo))
+		if (coleccionVehiculos.contains(vehiculo))
 		{
 			coleccionVehiculos.remove(vehiculo);
 		}
 		else
-			throw new OperationNotSupportedException("ERROR: No existe ningún turismo con esa matrícula.");
+			throw new OperationNotSupportedException("ERROR: No existe ningún vehículo con esa matrícula.");
 	}
 
 }

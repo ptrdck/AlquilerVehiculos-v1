@@ -1,5 +1,6 @@
 package org.iesalandalus.programacion.alquilervehiculos.vista.texto;
 
+import java.time.LocalDate;
 import java.util.Iterator;
 import java.util.List;
 
@@ -145,7 +146,24 @@ public class VistaTexto extends Vista
 		    	System.out.println(e.getMessage());
 		    }
 	}
-
+	
+	protected void devolverAlquiler()
+	{
+		Consola.mostrarCabecera("Devolver alquiler\n");
+		Alquiler alquiler = Consola.leerAlquiler();
+		LocalDate fechaDevolucion = Consola.leerFechaDevolucion();
+		
+		try
+		{
+			controlador.devolver(alquiler, fechaDevolucion);	
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+		
+	}
+/*
 	protected void devolverAlquilerCliente()
 	{
 		 Consola.mostrarCabecera("Devolver alquiler por cliente\n");
@@ -174,7 +192,7 @@ public class VistaTexto extends Vista
 		    	System.out.println(e.getMessage());
 		    }
 	}
-
+*/
 	protected void borrarCliente()
 	{
 		 Consola.mostrarCabecera("Borrar cliente\n");
@@ -198,7 +216,7 @@ public class VistaTexto extends Vista
 		    try
 		    {
 		    	controlador.borrar(Consola.leerVehiculoMatricula());
-		    	System.out.println("El turismo ha sido borrado con éxito");
+		    	System.out.println("El vehiculo ha sido borrado con éxito");
 		    	
 		    }
 		    catch (NullPointerException | OperationNotSupportedException| IllegalArgumentException e)
@@ -214,7 +232,7 @@ public class VistaTexto extends Vista
 		    try
 		    {
 		    	controlador.borrar(Consola.leerAlquiler());
-		    	System.out.println("El cliente ha sido borrado con éxito");
+		    	System.out.println("El alquiler ha sido borrado con éxito");
 		    	
 		    }
 		    catch (NullPointerException | OperationNotSupportedException| IllegalArgumentException e)

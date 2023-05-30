@@ -21,13 +21,11 @@ public interface IAlquileres
 	
 	void insertar(Alquiler alquiler) throws OperationNotSupportedException;
 	
-	void devolver(Cliente cliente, LocalDate fechaDevolucion);
-	
-	void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion);
-	
 	Alquiler buscar(Alquiler alquiler);
 	
 	void borrar(Alquiler alquiler) throws OperationNotSupportedException;
+
+	void devolver(Alquiler alquiler, LocalDate fechaDevolucion) throws OperationNotSupportedException;
 
 	
 

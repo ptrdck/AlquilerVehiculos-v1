@@ -1,6 +1,7 @@
 package org.iesalandalus.programacion.alquilervehiculos.modelo.negocio.memoria;
 
 import java.time.LocalDate;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,12 +26,8 @@ public class Alquileres implements IAlquileres
 	//Método get para devolver una nueva lista con los mismos elementos
 	public List<Alquiler> get()
 	{
-		List<Alquiler> copiaAlquileres = new LinkedList<>();
+		List<Alquiler> copiaAlquileres = new LinkedList<>(coleccionAlquileres);
 		
-		for (Alquiler alquiler: coleccionAlquileres)
-		{
-			copiaAlquileres.add(alquiler);
-		}
 		
 		return copiaAlquileres;
 	}
@@ -88,7 +85,7 @@ public class Alquileres implements IAlquileres
 			//comprueba que el turismo buscado no esté alquilado
 	        if (alquiler.getVehiculo().equals(vehiculo) && alquiler.getFechaDevolucion() == null)
 	        {
-	            throw new OperationNotSupportedException("ERROR: El turismo está actualmente alquilado.");
+	            throw new OperationNotSupportedException("ERROR: El vehículo está actualmente alquilado.");
 	        }
 	        //comrueba que el cliente no tiene ningún alquiler pendiente de devolver
 	        if (alquiler.getCliente().equals(cliente) && alquiler.getFechaDevolucion() == null)
@@ -99,7 +96,7 @@ public class Alquileres implements IAlquileres
 	        if (alquiler.getVehiculo().equals(vehiculo) && alquiler.getFechaDevolucion() != null &&
 	                alquiler.getFechaAlquiler().isAfter(fechaAlquiler))
 	        {
-	            throw new OperationNotSupportedException("ERROR: El turismo tiene un alquiler posterior.");
+	            throw new OperationNotSupportedException("ERROR: El vehiculo tiene un alquiler posterior.");
 	        }
 	        //comprueba si el cliente tiene un alquiler tiene un alquiler posterior
 	        if (alquiler.getCliente().equals(cliente) && alquiler.getFechaDevolucion() != null &&
@@ -119,6 +116,14 @@ public class Alquileres implements IAlquileres
 		{
 			throw new NullPointerException("ERROR: No se puede insertar un alquiler nulo.");
 		}
+		
+		 // Validar si el vehículo y el cliente ya existen en la lista de alquileres
+	    for (Alquiler a : coleccionAlquileres) {
+	        if (a.getVehiculo().equals(alquiler.getVehiculo()) && a.getCliente().equals(alquiler.getCliente())) {
+	            throw new OperationNotSupportedException("ERROR: El alquiler ya existe.");
+	        }
+	    }
+	    
 		//Llamada al método para comprobar las condiciones para que pueda insertarse el alquiler en la lista 
 		//de alquileres
 		comprobarAlquiler(alquiler.getCliente(), alquiler.getVehiculo(), alquiler.getFechaAlquiler());
@@ -185,32 +190,39 @@ public class Alquileres implements IAlquileres
 	}
 
 	@Override
-	public void devolver(Cliente cliente, LocalDate fechaDevolucion)
+	public void devolver(Alquiler alquiler, LocalDate fechaDevolucion) throws OperationNotSupportedException
 	{
-		Alquiler alquiler = getAlquilerAbierto(cliente);
-        if (alquiler != null)
+		
+        if (alquiler != null )
         {
-            alquiler.devolver(fechaDevolucion);
+        	
+        	boolean bandera = false;
+        	Iterator<Alquiler> iterador = coleccionAlquileres.iterator();
+        	
+        	while(iterador.hasNext() || bandera == false);
+        	{
+        		Alquiler alquilerDevolver = iterador.next();
+        		
+        		if (alquilerDevolver.equals(alquiler))
+        		{
+        			alquiler.devolver(fechaDevolucion);
+        			bandera = true;
+        		}
+        		
+        	}
+            
+        }
+        if (fechaDevolucion != null)
+        {
+        	throw new OperationNotSupportedException("ERROR: el alquiler ya ha sido devuelto");
         }
         else
-        {
-        	System.out.println("No hay ningún alquiler abierto para el cliente: " + cliente.getNombre());
-        }
+        	throw new OperationNotSupportedException("ERROR: no puede realizarse una devolución de un alquiler nulo");
+        	
 		
 	}
 	
-	private Alquiler getAlquilerAbierto(Cliente cliente)
-	{
-		for (Alquiler alquiler : coleccionAlquileres)
-		{
-			if (alquiler.getCliente().equals(cliente) && alquiler.getFechaDevolucion() == null)
-			{
-				return alquiler;
-			}
-		}
-		return null;
-	}
-
+/*
 	@Override
 	public void devolver(Vehiculo vehiculo, LocalDate fechaDevolucion) 
 	{
@@ -225,7 +237,8 @@ public class Alquileres implements IAlquileres
 		}
 		
 	}
-	
+	*/
+	/*
 	private Alquiler getAlquilerAbierto(Vehiculo vehiculo)
 	{
 		for (Alquiler alquiler : coleccionAlquileres)
@@ -239,6 +252,6 @@ public class Alquileres implements IAlquileres
 		return null;
 	}
 
-	
+	*/
 	
 }

@@ -107,19 +107,46 @@ public class Consola
 	
 	public static Cliente leerCliente()
 	{
+		Cliente cliente = null;
 		String dni = leerCadena("\nIntroduzca el dni: ");
 		String nombre = leerNombre();
 		String telefono = leerTelefono();
 		
-		return new Cliente(nombre, dni, telefono);
+		try 
+		{
+			return cliente = new Cliente(nombre, dni, telefono);
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 		
+		return cliente;
 	}
 	
 	public static Cliente leerClienteDni()
 	{
-		System.out.print("Introduzca el DNI del cliente: ");
-		String dni = leerCadena("DNI: ");
+		Cliente cliente = null;
+		String dni = null;
 		
+		do {
+			dni = leerCadena("Introduzca el DNI del cliente: ");
+			try
+			{
+				
+				return Cliente.getClienteConDni(dni);
+				
+			}
+			catch(Exception e)
+			{
+				System.out.println(e.getMessage());
+			}
+			
+		} while (cliente == null);
+		
+		
+		
+	
 		return new Cliente("Pedro Cardenas", dni, "644493658");
 		
 			
@@ -238,8 +265,27 @@ public class Consola
 	
 	public static Vehiculo leerVehiculoMatricula()
 	{
-		String matricula = leerCadena("Introduce la matrícula del turismo: ");
-	    return new Turismo("Seat", "Cordoba", 1500, matricula);
+		
+		Vehiculo vehiculo = null;
+		String matricula = null;
+		
+		do {
+			matricula = leerCadena("Introduzca la matrícula del automóvil: ");
+			try
+			{
+				
+				return Vehiculo.getVehiculoConMatricula(matricula);
+				
+			}
+			catch(Exception e)
+			{
+				System.out.println(e.getMessage());
+			}
+			
+		} while (vehiculo == null);
+		
+	
+		return new Turismo("Seat" , "Cordoba", 1900, matricula);
 	}
 	
 	public static Alquiler leerAlquiler()
@@ -253,7 +299,16 @@ public class Consola
 	
 	public static LocalDate leerFechaDevolucion()
 	{
-		LocalDate fechaDevolucion = leerFecha("Fecha devolucion: ");
+		
+		LocalDate fechaDevolucion;
+		
+		do
+		{
+			fechaDevolucion = leerFecha("Fecha devolucion: ");
+			
+		}while (fechaDevolucion == null);
+		
+		
 		
 		return fechaDevolucion;
 	}

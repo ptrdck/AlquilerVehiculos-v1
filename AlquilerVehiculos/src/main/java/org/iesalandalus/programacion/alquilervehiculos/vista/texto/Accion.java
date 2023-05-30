@@ -58,18 +58,11 @@ public enum Accion
 			vistaTexto.modificarCliente();
 		}
 	},
-	DEVOLVER_ALQUILER_CLIENTE("Devolver alquiler por cliente")
+	DEVOLVER_ALQUILER("Devolver alquiler")
 	{
 		public void ejecutar()
 		{
-			vistaTexto.devolverAlquilerCliente();
-		}
-	},
-	DEVOLVER_ALQUILER_VEHICULO("Devolver alquiler por vehículo")
-	{
-		public void ejecutar()
-		{
-			vistaTexto.devolverAlquilerVehiculo();
+			vistaTexto.devolverAlquiler();
 		}
 	},
 	

@@ -5,7 +5,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
-public class Alquiler {
+import javax.naming.OperationNotSupportedException;
+
+public class Alquiler
+{
 	
 
 	
@@ -38,7 +41,7 @@ public class Alquiler {
 			throw new NullPointerException("ERROR: No es posible copiar un alquiler nulo.");
 		}
 		setCliente(alquiler.getCliente());
-		setVehiculo(alquiler.getVehiculo().copiar(getVehiculo()));
+		setVehiculo(alquiler.getVehiculo());
 		setFechaAlquiler(alquiler.getFechaAlquiler());
 	}
 	
@@ -72,7 +75,7 @@ public class Alquiler {
 	{
 		if (vehiculo == null)
 		{
-			throw new NullPointerException("ERROR: El turismo no puede ser nulo.");
+			throw new NullPointerException("ERROR: El vehiculo no puede ser nulo.");
 		}
 		this.vehiculo = vehiculo;
 	}
@@ -111,11 +114,11 @@ public class Alquiler {
 	
 	//Método Devolver
 	
-	public void devolver(LocalDate fechaDevolucion)
+	public void devolver(LocalDate fechaDevolucion) throws OperationNotSupportedException
 	{
-		if (fechaDevolucion.isAfter(fechaAlquiler) && fechaDevolucion != null)
+		if (this.fechaDevolucion != null)
 		{
-			throw new IllegalArgumentException("ERROR: La devolución ya estaba registrada.");
+			throw new OperationNotSupportedException("ERROR: La devolución ya estaba registrada.");
 		}
 		setFechaDevolucion(fechaDevolucion);
 	}
@@ -154,7 +157,8 @@ public class Alquiler {
 	}
 
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		
 		if(fechaDevolucion==null)
 		{
@@ -165,10 +169,7 @@ public class Alquiler {
 		{
 			return String.format("%s <---> %s, %s - %s (%d€)", cliente, vehiculo, FORMATO_FECHA.format(fechaAlquiler), FORMATO_FECHA.format(fechaDevolucion), 10);
 		}
-	}
-	
-	
-	
+	}	
 	
 
 }
