@@ -116,7 +116,7 @@ public class Alquiler
 	
 	public void devolver(LocalDate fechaDevolucion) throws OperationNotSupportedException
 	{
-		if (this.fechaDevolucion != null)
+		if (getFechaDevolucion() != null)
 		{
 			throw new OperationNotSupportedException("ERROR: La devolución ya estaba registrada.");
 		}

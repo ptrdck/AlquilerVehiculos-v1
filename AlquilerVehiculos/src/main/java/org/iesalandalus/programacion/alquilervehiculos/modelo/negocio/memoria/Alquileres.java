@@ -193,33 +193,19 @@ public class Alquileres implements IAlquileres
 	public void devolver(Alquiler alquiler, LocalDate fechaDevolucion) throws OperationNotSupportedException
 	{
 		
-        if (alquiler != null )
+       
+       
+		if (alquiler == null)
         {
+        	throw new NullPointerException("ERROR: El alquiler no puede ser nulo");
         	
-        	boolean bandera = false;
-        	Iterator<Alquiler> iterador = coleccionAlquileres.iterator();
-        	
-        	while(iterador.hasNext() || bandera == false);
-        	{
-        		Alquiler alquilerDevolver = iterador.next();
-        		
-        		if (alquilerDevolver.equals(alquiler))
-        		{
-        			alquiler.devolver(fechaDevolucion);
-        			bandera = true;
-        		}
-        		
-        	}
-            
         }
-        if (fechaDevolucion != null)
+        else if (buscar(alquiler) == null)
         {
-        	throw new OperationNotSupportedException("ERROR: el alquiler ya ha sido devuelto");
+        	throw new OperationNotSupportedException("ERROR: No existe alquiler registrado");
         }
-        else
-        	throw new OperationNotSupportedException("ERROR: no puede realizarse una devolución de un alquiler nulo");
-        	
 		
+		alquiler.devolver(fechaDevolucion);
 	}
 	
 /*

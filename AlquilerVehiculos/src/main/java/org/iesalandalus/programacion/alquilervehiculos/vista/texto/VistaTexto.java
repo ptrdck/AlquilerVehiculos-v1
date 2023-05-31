@@ -163,36 +163,7 @@ public class VistaTexto extends Vista
 		}
 		
 	}
-/*
-	protected void devolverAlquilerCliente()
-	{
-		 Consola.mostrarCabecera("Devolver alquiler por cliente\n");
-		
-;		    try
-		    {
-		    	controlador.devolver(Consola.leerClienteDni(), Consola.leerFechaDevolucion());
-		    	System.out.println("Fecha de devolución correcta");
-		    }
-		    catch (NullPointerException | OperationNotSupportedException| IllegalArgumentException e)
-		    {
-		    	System.out.println(e.getMessage());
-		    }
-	}
-	protected void devolverAlquilerVehiculo()
-	{
-		 Consola.mostrarCabecera("Devolver alquiler por vehículo\n");
-		 
-		    try
-		    {
-		    	controlador.devolver(Consola.leerVehiculoMatricula(), Consola.leerFechaDevolucion());
-		    	System.out.println("Fecha de devolución correcta");
-		    }
-		    catch (NullPointerException | OperationNotSupportedException| IllegalArgumentException e)
-		    {
-		    	System.out.println(e.getMessage());
-		    }
-	}
-*/
+
 	protected void borrarCliente()
 	{
 		 Consola.mostrarCabecera("Borrar cliente\n");
